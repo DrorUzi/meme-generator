@@ -13,12 +13,15 @@
     <header>
         <section class="container header-wrapper flex align-center">
             <div class="logo flex-1">
-                <img src="DESIGN/LOGO/LOGO.png" alt="">
+                <img src="DESIGN/logo.png" alt="">
             </div>
             <nav id="mainMenu" class="main-menu-wrapper">
                 <ul class="main-menu clean-list flex align-center">
                     <li>
                         <a href="index.html">Gallery</a>
+                    </li>
+                    <li>
+                        <a href="#">Memes</a>
                     </li>
                     <li>
                         <a href="#">About</a>
@@ -31,31 +34,41 @@
         </section>
     </header>
     <div class="editor-container flex">
-            <div class="canvas-container">
+        <div class="canvas-container">
             <canvas id="my-canvas" width="500" height="500">
                 Update your browser to enjoy canvas!
             </canvas>
-            </div>
-        <div class="editor flex column">
+        </div>
+        <div class="editor flex column ">
             <!-- <a href="index.html">Back to gallery</a> -->
             <h1>Make your meme!</h1>
-            <label for="txt">Write your text</label>
-            <input class="txt" type="text" name="txt" id="txt">
-            <button type="button" class="txt-btn" onclick="onAddTxt()">Add</button>
+            <div class="editor-btns flex column space-around ">
+                <textarea class="top-txt" type="text" name="txt" id="txt" rows="3" onkeyup="onAddTxtUp()"></textarea>
+                <textarea class="bottom-txt" type="text" name="txt" id="txt" rows="3"
+                    onkeyup="onAddTxtDown()"></textarea>
+                <!-- <input class="top-txt" type="text" name="txt" id="txt" onkeyup="onAddTxtUp()"> -->
+                <!-- <input class="bottom-txt" type="text" name="txt" id="txt" onkeyup="onAddTxtDown()"> -->
+                <img src="DESIGN/Meme1 - Sergei/ICONS/decrease font - icon.png" alt="" class="font-size"
+                    onclick="decreaseFont()">
+                <img src="DESIGN/Meme1 - Sergei/ICONS/increase font - icon.png" alt="" class="font-size"
+                    onclick="increaseFont()">
+                <button type="button" class="txt-btn" onclick="onSaveMeme()">Save meme</button>
+            </div>
         </div>
-        </div>
-   
+    </div>
+
 
     <footer class="flex">
-                <div class="logo">
-                        <img src="DESIGN/LOGO/LOGO.png" alt="">
-                </div>
-                <small>©All Rights Reserved 2019</small>
-        </footer>
+        <div class="logo">
+            <img src="DESIGN/logo.png" alt="">
+        </div>
+        <small>©All Rights Reserved 2019</small>
+    </footer>
 
     <script src="js/utils.js"></script>
     <script src="js/service.js"></script>
-    <script src="js/controler.js"></script>
+    <script src="js/gallery-controler.js"></script>
+    <script src="js/editor-controler.js"></script>
 </body>
 
 </html>
