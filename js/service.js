@@ -6,17 +6,32 @@ let gNextId = 101;
 let gImgs = createImgs();
 let gMeme =  {
     selectedImgId: 5,
+    txtIdx:0,
     txts: []
 }
 
 
-function addTxt(elTxt,color,size) {
+function addTxt(elTxt,x,y) {
     var txt = {
-        line: elTxt,
-        size:size,
-        color:color
+        line: '',
+        // size:size,
+        // color:color,
+        x,
+        y
     }
     gMeme.txts.push(txt)
+}
+
+function changeTxt(elTxt,x,y) {
+    // var idx = gMeme.txts.findIndex(txt => txt.line === elTxt.substr(0, elTxt.length-1))
+    var txt = {
+        line: elTxt,
+        // size:size,
+        // color:color,
+        x,
+        y
+    }
+    gMeme.txts[gMeme.txtIdx] = txt;
 }
 
 function updateMeme(imgId){
@@ -83,3 +98,6 @@ function loadImgIdFromStorage(){
     return loadFromStorage(IMG_ID)
 }
 
+function getMemes(){
+    return gMeme
+}

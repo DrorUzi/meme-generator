@@ -6,17 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MEME-CREATORE</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body onload="initEditor()">
     <header>
-        <section class="container header-wrapper flex align-center">
+        <section class=" header-wrapper">
             <div class="logo flex-1">
                 <img src="DESIGN/logo.png" alt="">
             </div>
             <nav id="mainMenu" class="main-menu-wrapper">
-                <ul class="main-menu clean-list flex align-center">
+                <ul class="main-menu clean-list">
                     <li>
                         <a href="index.html">Gallery</a>
                     </li>
@@ -33,38 +35,51 @@
 
         </section>
     </header>
-    <div class="editor-container flex">
-        <div class="canvas-container">
-            <canvas id="my-canvas" width="500" height="500">
-                Update your browser to enjoy canvas!
-            </canvas>
-        </div>
-        <div class="editor flex column ">
-            <!-- <a href="index.html">Back to gallery</a> -->
-            <h1>Make your meme!</h1>
-            <div class="editor-btns flex column space-around ">
-                <textarea class="top-txt" type="text" name="txt" id="txt" rows="3" onkeyup="onAddTxtUp()"></textarea>
-                <textarea class="bottom-txt" type="text" name="txt" id="txt" rows="3"
-                    onkeyup="onAddTxtDown()"></textarea>
-                <!-- <input class="top-txt" type="text" name="txt" id="txt" onkeyup="onAddTxtUp()"> -->
-                <!-- <input class="bottom-txt" type="text" name="txt" id="txt" onkeyup="onAddTxtDown()"> -->
-                <img src="DESIGN/Meme1 - Sergei/ICONS/decrease font - icon.png" alt="" class="font-size"
-                    onclick="decreaseFont()">
-                <img src="DESIGN/Meme1 - Sergei/ICONS/increase font - icon.png" alt="" class="font-size"
-                    onclick="increaseFont()">
-                <button type="button" class="txt-btn" onclick="onSaveMeme()">Save meme</button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="canvas-container col-sm">
+                <canvas id="my-canvas" width="500" height="500">
+                    Update your browser to enjoy canvas!
+                </canvas>
+            </div>
+            <div class="editor col-sm ">
+                <!-- <a href="index.html">Back to gallery</a> -->
+                <h1>Make your meme!</h1>
+                <div class="editor-btns column space-around ">
+                    <textarea class="top-txt" type="text" name="txt" id="txt" rows="3"
+                        onkeyup="onChangeTxt()"></textarea>
+                    <!-- <textarea class="bottom-txt" type="text" name="txt" id="txt" rows="3"
+                        onkeyup="onChangeTxtDown()"></textarea> -->
+                    <!-- <input class="top-txt" type="text" name="txt" id="txt" onkeyup="onAddTxtUp()"> -->
+                    <!-- <input class="bottom-txt" type="text" name="txt" id="txt" onkeyup="onAddTxtDown()"> -->
+                    <img src="DESIGN/Meme1 - Sergei/ICONS/decrease font - icon.png" alt="" data-toggle="tooltip" data-placement="top" title="Increase Font Size" class="font-size"
+                        onclick="decreaseFont()">
+                    <img src="DESIGN/Meme1 - Sergei/ICONS/increase font - icon.png" alt="" data-toggle="tooltip" data-placement="top" title="Decrease Font Size" class="font-size"
+                        onclick="increaseFont()">
+                    <img src="DESIGN/Meme1 - Sergei/ICONS/up-down.png" alt="" data-toggle="tooltip" data-placement="top" title="Next text" class="font-size" onclick="onNextTxt()">
+                        
+                    <button type="button" class="txt-btn" onclick="onSaveMeme()">Save meme</button>
+                </div>
             </div>
         </div>
+
+
     </div>
-
-
     <footer class="flex">
         <div class="logo">
             <img src="DESIGN/logo.png" alt="">
         </div>
         <small>©All Rights Reserved 2019</small>
     </footer>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
     <script src="js/utils.js"></script>
     <script src="js/service.js"></script>
     <script src="js/gallery-controler.js"></script>
