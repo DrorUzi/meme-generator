@@ -36,7 +36,7 @@
         </section>
     </header>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row all">
             <div class="canvas-container col-sm ">
                 <canvas class="flex justify-center" id="my-canvas" width="500" height="500">
                     Update your browser to enjoy canvas!
@@ -72,6 +72,20 @@
                         <img src="DESIGN/Meme1 - Sergei/ICONS/align-to-right.png" alt="" data-toggle="tooltip"
                             id="right" data-placement="top" title="Change text direction right-to-left"
                             class="font-size" onclick="onTextDirection(this.id)">
+                    </div>
+                    <div class="forth-editors flex row justify-center">
+                        <img src="DESIGN/Meme1 - Sergei/ICONS/Arrowright (1).png" alt="" data-toggle="tooltip"
+                            id="right" data-placement="top" title="Move the row right"
+                            class="font-size" onclick="onChangeLocation(this.id)">
+                            <img src="DESIGN/Meme1 - Sergei/ICONS/left-arrow.png" alt="" data-toggle="tooltip"
+                            id="left" data-placement="top" title="Move the row left"
+                            class="font-size" onclick="onChangeLocation(this.id)">
+                            <img src="DESIGN/Meme1 - Sergei/ICONS/download-arrow.png" alt="" data-toggle="tooltip"
+                            id="down" data-placement="top" title="Move the row down"
+                            class="font-size" onclick="onChangeLocation(this.id)">
+                            <img src="DESIGN/Meme1 - Sergei/ICONS/up-arrow.png" alt="" data-toggle="tooltip"
+                            id="up" data-placement="top" title="Move the row up"
+                            class="font-size" onclick="onChangeLocation(this.id)">
                     </div>
                     <div class="forth-editors flex row justify-center">
                         <select class="form-control" onchange="onChangeFont()">

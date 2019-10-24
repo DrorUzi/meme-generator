@@ -129,7 +129,8 @@ button {
 }
 
 input {
-    width: 0;
+    z-index: -10;
+    /* idth: 10px;w */
 }
 
 .Modak {
@@ -164,6 +165,7 @@ a:hover{
     color: black;
 
 }
+
 
 @media (max-width: 580px) {
     .header-wrapper {
@@ -371,8 +373,13 @@ footer .logo img {
 
 .color {
     opacity: 0;
+    z-index: 100;
 }
+
 
 .stroke {
     opacity: 0;
+    z-index: 100;
+
+
 }
