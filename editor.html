@@ -13,7 +13,7 @@
 
 <body onload="initEditor()">
     <header>
-        <section class=" header-wrapper">
+        <section class="header-wrapper flex align-center">
             <div class="logo flex-1">
                 <img src="DESIGN/logo.png" alt="">
             </div>
@@ -37,31 +37,75 @@
     </header>
     <div class="container-fluid">
         <div class="row">
-            <div class="canvas-container col-sm">
-                <canvas id="my-canvas" width="500" height="500">
+            <div class="canvas-container col-sm ">
+                <canvas class="flex justify-center" id="my-canvas" width="500" height="500">
                     Update your browser to enjoy canvas!
                 </canvas>
             </div>
-            <div class="editor col-sm ">
-                <!-- <a href="index.html">Back to gallery</a> -->
-                <h1>Make your meme!</h1>
-                <div class="editor-btns column space-around ">
+
+
+            <div class="editor col-sm  ">
+                <div class="editor-btns column flex">
                     <textarea class="top-txt" type="text" name="txt" id="txt" rows="3"
-                        onkeyup="onChangeTxt()"></textarea>
-                    <!-- <textarea class="bottom-txt" type="text" name="txt" id="txt" rows="3"
-                        onkeyup="onChangeTxtDown()"></textarea> -->
-                    <!-- <input class="top-txt" type="text" name="txt" id="txt" onkeyup="onAddTxtUp()"> -->
-                    <!-- <input class="bottom-txt" type="text" name="txt" id="txt" onkeyup="onAddTxtDown()"> -->
-                    <img src="DESIGN/Meme1 - Sergei/ICONS/decrease font - icon.png" alt="" data-toggle="tooltip" data-placement="top" title="Increase Font Size" class="font-size"
-                        onclick="decreaseFont()">
-                    <img src="DESIGN/Meme1 - Sergei/ICONS/increase font - icon.png" alt="" data-toggle="tooltip" data-placement="top" title="Decrease Font Size" class="font-size"
-                        onclick="increaseFont()">
-                    <img src="DESIGN/Meme1 - Sergei/ICONS/up-down.png" alt="" data-toggle="tooltip" data-placement="top" title="Next text" class="font-size" onclick="onNextTxt()">
-                        
-                    <button type="button" class="txt-btn" onclick="onSaveMeme()">Save meme</button>
+                        onkeyup="onChangeLine()"></textarea>
+                    <div class="first-editors flex row justify-center">
+                        <img src="DESIGN/Meme1 - Sergei/ICONS/up-down.png" alt="" data-toggle="tooltip"
+                            data-placement="top" title="Next text" class="font-size" onclick="onNextTxt()">
+                        <img src="DESIGN/Meme1 - Sergei/ICONS/add.png" alt="" data-toggle="tooltip" data-placement="top"
+                            title="Add text" class="font-size" onclick="onAddText()">
+                        <img src="DESIGN/Meme1 - Sergei/ICONS/trash.png" alt="" data-toggle="tooltip"
+                            data-placement="top" title="Delete text" class="font-size" onclick="onDeleteText()">
+                    </div>
+                    <div class="second-editors flex row justify-center">
+                        <img src="DESIGN/Meme1 - Sergei/ICONS/increase font - icon.png" alt="" data-toggle="tooltip"
+                            data-placement="top" title="Increase Font Size" class="font-size"
+                            onclick="onIncreaseFont()">
+                        <img src="DESIGN/Meme1 - Sergei/ICONS/decrease font - icon.png" alt="" data-toggle="tooltip"
+                            data-placement="top" title="Decrease Font Size" class="font-size"
+                            onclick="onDecreaseFont()">
+                        <img src="DESIGN/Meme1 - Sergei/ICONS/align-to-left.png" alt="" data-toggle="tooltip" id="left"
+                            data-placement="top" title="Change text direction left-to-right" class="font-size"
+                            onclick="onTextDirection(this.id)">
+                        <img src="DESIGN/Meme1 - Sergei/ICONS/center-text-alignment.png" alt="" data-toggle="tooltip"
+                            id="center" data-placement="top" title="Change text direction to center" class="font-size"
+                            onclick="onTextDirection(this.id)">
+                        <img src="DESIGN/Meme1 - Sergei/ICONS/align-to-right.png" alt="" data-toggle="tooltip"
+                            id="right" data-placement="top" title="Change text direction right-to-left"
+                            class="font-size" onclick="onTextDirection(this.id)">
+                    </div>
+                    <div class="forth-editors flex row justify-center">
+                        <select class="form-control" onchange="onChangeFont()">
+                            <option hidden>Font</option>
+                            <option class="Impact">Impact</option>
+                            <option class="Modak">Modak</option>
+                            <option class="Monoton">Monoton</option>
+                            <option class="PoiretOne">PoiretOne</option>
+                            <option class="Sacramento">Sacramento</option>
+                            <option class="GloriaHalleluja">GloriaHalleluja</option>
+                        </select>
+                        <label for="stroke "><img src="DESIGN/Meme1 - Sergei/ICONS/text stroke.png" alt=""
+                                data-toggle="tooltip" data-placement="top" title="Change stroke color"
+                                class="font-size"></label>
+                        <input class="stroke" id="stroke" type="color" value="" onchange="onChangeStroke()">
+                        <label for="color "><img src="DESIGN/Meme1 - Sergei/ICONS/paint-board-and-brush.png" alt=""
+                                data-toggle="tooltip" data-placement="top" title="Change color" class="font-size"
+                                onclick="onChangeColor()"></label>
+                        <input class="color" id="color" type="color" value="" onchange="onChangeColor()">
+                    </div>
+                    <div class="btns flex row space-around">
+                        <button type="button" class="save-btn btn" onclick="onSaveMeme()">Save meme</button>
+                        <button type="button" class="save-btn btn"><a href="#"
+                                onclick="onDownloadMeme(this)">Download</button>
+                        <form action="" method="POST" enctype="multipart/form-data" onsubmit="onShareMeme(this, event)">
+                            <input name="img" id="imgData" type="hidden" />
+                            <button class="share-container save-btn btn" type="submit">Share</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+    </div>
 
 
     </div>

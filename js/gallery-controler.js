@@ -6,6 +6,8 @@ let gCtx, gCanvas;
 function init(){
     createImgs()
     renderImgs()
+    getWordsCount();
+
 }
 
 
@@ -22,7 +24,7 @@ function renderImgs() {
     let elContainer = document.querySelector('.imgs-container');
     var strHtml=''
     imgs.forEach(img => {
-        strHtml += `<img class="img trigger" src="${img.src}" alt="" onclick="onAddImg(${img.id})">`
+        strHtml += `<img class="img" src="${img.src}" alt="" onclick="onAddImg(${img.id})">`
     });
     elContainer.innerHTML = strHtml
 }

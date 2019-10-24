@@ -1,40 +1,70 @@
 'use strict'
 
-
+const MEMES = 'memes'
 const IMG_ID = 'imgId'
 let gNextId = 101;
 let gImgs = createImgs();
-let gMeme =  {
+let gMeme = {
     selectedImgId: 5,
-    txtIdx:0,
+    txtIdx: 0,
     txts: []
 }
+let gWordsCounts = {};
 
 
-function addTxt(elTxt,x,y) {
+
+function addTxt(x, y) {
     var txt = {
         line: '',
-        // size:size,
-        // color:color,
+        txtSize: { size: 80, font : `Impact, Haettenschweiler, Arial Narrow Bold, sans-serif`},
+        color: '#ffffff',
+        strokeColor: '#000000',
         x,
         y
+        
     }
     gMeme.txts.push(txt)
 }
 
-function changeTxt(elTxt,x,y) {
-    // var idx = gMeme.txts.findIndex(txt => txt.line === elTxt.substr(0, elTxt.length-1))
+function changeTxt(elTxt,size,font, color, strokeColor, x, y,boxSize) {
     var txt = {
         line: elTxt,
-        // size:size,
-        // color:color,
+        txtSize:{size,font},
+        color,
+        strokeColor,
         x,
-        y
+        y,
+        boxSize
     }
+   
     gMeme.txts[gMeme.txtIdx] = txt;
 }
 
-function updateMeme(imgId){
+function changeLine(line) {
+    let txt = gMeme.txts[gMeme.txtIdx];
+    changeTxt(line,txt.txtSize.size,txt.txtSize.font, txt.color, txt.strokeColor, txt.x, txt.y,txt.boxSize);
+}
+
+function changeColor(color) {
+    let txt = gMeme.txts[gMeme.txtIdx];
+    changeTxt(txt.line, txt.txtSize.size,txt.txtSize.font, color, txt.strokeColor, txt.x, txt.y,txt.boxSize);
+}
+function changeStroke(stroke) {
+    let txt = gMeme.txts[gMeme.txtIdx];
+    changeTxt(txt.line,txt.txtSize.size,txt.txtSize.font, txt.color, stroke, txt.x, txt.y,txt.boxSize);
+}
+
+function changeSize(size) {
+    let txt = gMeme.txts[gMeme.txtIdx];
+    changeTxt(txt.line, size,txt.txtSize.font, txt.color, txt.strokeColor, txt.x, txt.y,txt.boxSize);
+}
+
+function changeFont(font){
+    let txt = gMeme.txts[gMeme.txtIdx];
+    changeTxt(txt.line, txt.txtSize.size,font, txt.color, txt.strokeColor, txt.x, txt.y,txt.boxSize);
+}
+
+function updateMeme(imgId) {
     gMeme.selectedImgId = imgId
 }
 
@@ -45,13 +75,13 @@ function getImgs() {
 
 function createImgs() {
     return [
-        createImg("/meme-imgs/003.jpg"),
-        createImg("/meme-imgs/004.jpg"),
-        createImg("/meme-imgs/005.jpg"),
-        createImg("/meme-imgs/5.jpg"),
-        createImg("/meme-imgs/putin.jpg"),
-        createImg("/meme-imgs/006.jpg"),
-        createImg("/meme-imgs/8.jpg"),
+        createImg("/meme-imgs/003.jpg", ['usa', 'president', 'tramp', 'angry']),
+        createImg("/meme-imgs/004.jpg",['puppys', 'dog', 'cute', 'happy', 'animals']),
+        createImg("/meme-imgs/005.jpg",['animals', 'god', 'baby', 'cute', 'sleep']),
+        createImg("/meme-imgs/5.jpg",['baby', 'cute', 'strong']),
+        createImg("/meme-imgs/putin.jpg",['putin', 'president', 'russia', 'angry']),
+        createImg("/meme-imgs/006.jpg",['animals', 'cat', 'cute', 'sleep']),
+        createImg("/meme-imgs/8.jpg",['smile', 'alice', 'happy']),
         createImg("/meme-imgs/12.jpg"),
         createImg("/meme-imgs/19.jpg"),
         createImg("/meme-imgs/img2.jpg"),
@@ -73,11 +103,30 @@ function createImgs() {
 
 }
 
+function getWordsCount() {
 
-function createImg(src) {
+    gImgs.forEach(img => {
+        img.keywords.forEach(word => {
+    console.log(gWordsCounts)
+
+            
+            if (gWordsCounts.hasOwnProperty(word)) {
+                gWordsCounts[word]++;
+            } else {
+                gWordsCounts[word] = 1;
+            }
+
+        })
+    })
+
+}
+
+
+function createImg(src, keywords) {
     return {
         id: gNextId++,
         src,
+        keywords
     }
 }
 
@@ -85,19 +134,29 @@ function createImg(src) {
 function findImgUrlById(id) {
     var currImg = gImgs.find((img) => {
         return img.id === id
-       
+
     })
     return currImg.src
 }
 
-function saveImgIdToLocalStorage(imgId){
-    saveToStorage(IMG_ID,imgId)
+function saveImgIdToLocalStorage(imgId) {
+    saveToStorage(IMG_ID, imgId)
 }
 
-function loadImgIdFromStorage(){
+function loadImgIdFromStorage() {
     return loadFromStorage(IMG_ID)
 }
 
-function getMemes(){
+function getMemes() {
     return gMeme
+}
+
+function saveMemeToLocalStorage(meme) {
+    let memes = loadMemesFromStorage()
+    if (memes) memes.push(meme);
+    localStorage.setItem(MEMES, gCanvas.toDataURL());
+}
+
+function loadMemesFromStorage() {
+    return loadFromStorage(MEMES)
 }

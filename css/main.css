@@ -1,27 +1,80 @@
-body{
+@font-face {
+    font-family: GloriaHalleluja;
+    src: url(/fonts/font-to-choose/GloriaHallelujah-Regular.ttf);
+}
+
+@font-face {
+    font-family: Modak;
+    src: url(/fonts/font-to-choose/Modak-Regular.ttf);
+}
+
+@font-face {
+    font-family: Monoton;
+    src: url(/fonts/font-to-choose/Monoton-Regular.ttf);
+}
+
+@font-face {
+    font-family: PoiretOne;
+    src: url(/fonts/font-to-choose/PoiretOne-Regular.ttf);
+}
+
+@font-face {
+    font-family: Sacramento;
+    src: url(/fonts/font-to-choose/Sacramento-Regular.ttf);
+}
+
+body {
     background-color: #e3e3e3;
     margin: 0;
 }
 
-button{
+button {
     background-color: none;
     cursor: pointer;
 }
+
 .canvas-container {
-    padding: 20px
-    /* height: 50vh; */
-    /* background-color: red; */
-    /* width: 60vh; */
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 60vh;
+    margin: 0 auto;
 }
 
-.editor-container{
-    width: 100vh;
+#my-canvas {
+    margin:0 auto;
 }
-.editor-btns{
+
+@media (max-width: 740px) {
+    .canvas-container {
+        text-align: center;
+        max-width: 40rem;
+    }
+    .img {
+        max-width: 40rem;
+    }
+    #my-canvas {
+        margin:0 auto;
+    }
+}
+
+
+.top-txt {
+    display: flex;
+    border: none;
+    border-radius: 12px;
+    height: 3.75rem;
+    width: 23rem;
+    align-self: center;
+}
+
+
+
+.editor-btns {
     flex-wrap: wrap;
 }
+
 .imgs-container {
-    justify-content:center;
+    justify-content: center;
     display: flex;
     flex-wrap: wrap;
     padding: 10px;
@@ -33,31 +86,134 @@ button{
     object-fit: cover;
     cursor: pointer;
 }
+
 .font-size {
     background-color: white;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 5px;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 10px;
     padding: 5px;
-    
+}
+
+
+
+.first-editors {
+    margin-top: 0.3rem;
+}
+
+.second-editors {
+    margin-top: 1.3rem;
+}
+
+.third-editors {
+    margin-top: 0.3rem;
+}
+
+.form-control {
+    height: 3rem;
+    border-radius: 10px;
+    width: 9.5rem;
+    padding: 5px;
+    margin: 0.3rem;
+}
+
+.save-btn {
+    background-color: rgb(252, 195, 195);
+    border-radius: 10px;
+    width: 7.5rem;
+    padding: 1rem;
+}
+
+.save-btn:hover {
+    background-color: lightcoral;
+}
+
+input {
+    width: 0;
+}
+
+.Modak {
+    font-family: Modak;
+}
+
+.Monoton {
+    font-family: Monoton;
+}
+
+.PoiretOne {
+    font-family: PoiretOne;
+}
+
+.Sacramento {
+    font-family: Sacramento;
+}
+
+.GloriaHalleluja {
+    font-family: GloriaHalleluja;
+}
+
+.Impact {
+    font-family: Impact;
+}
+a{
+    color: black;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+    color: black;
+
+}
+
+@media (max-width: 580px) {
+    .header-wrapper {
+        width: 100%;
+    }
+    body {
+        width: 100%;
+    }
+    .canvas-container {
+        max-height: 20rem;
+        margin: 0;
+    }
+    #my-canvas{
+        margin: 0 auto;
+        width: 20rem; 
+        max-height: 20rem;
+        padding: 10px;
+       
+    }
+    .editor-btns {
+        max-width: 80vh;
+        flex-wrap: wrap;
+        height: auto;
+    }
+    .top-txt{
+        width: auto;
+    }
+    .save-btn{
+        margin-top :5px;
+        padding: 0;
+    }
 }
 
 /***nav***/
 
-header{
+header {
     background-color: lightcoral
 }
+
 header .header-wrapper {
     height: 4.12rem;
     display: flex;
-    text-align: center;
 }
 
-header .logo img{
+header .logo img {
     width: 8.3rem;
-    padding: 0 20px;
+    margin-left: 1.5rem;
 }
-.main-menu{
+
+.main-menu {
     display: flex;
     align-items: center;
 }
@@ -70,7 +226,6 @@ header .logo img{
     width: 8.4375rem;
     text-align: center;
     border-right: 1px solid #1e1e1e;
-
 }
 
 .main-menu a:first-child {
@@ -80,7 +235,6 @@ header .logo img{
 .main-menu a.active {
     color: black;
 }
-
 
 .main-menu a:hover {
     color: black;
@@ -157,15 +311,15 @@ header .logo img{
 
 /**footer**/
 
-footer{
+footer {
     flex-direction: column;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
     background-color: lightcoral;
     height: 12.9rem;
 }
 
-footer .logo img{
+footer .logo img {
     width: 8.3rem;
     padding: 0 20px;
 }
@@ -202,6 +356,23 @@ footer .logo img{
     justify-content: space-around;
 }
 
-.column{
+.column {
     flex-direction: column;
+}
+
+.editor-btns {
+    padding: 1.8rem;
+}
+
+.editor-btns img {
+    cursor: pointer;
+    margin: 0.3rem;
+}
+
+.color {
+    opacity: 0;
+}
+
+.stroke {
+    opacity: 0;
 }
