@@ -4,6 +4,7 @@ body {
     margin: 0;
 }
 
+
 button {
     background-color: none;
     cursor: pointer;
@@ -185,6 +186,9 @@ a:hover {
     .img{
         width: 50%;
         height: 10rem;
+    }
+    .form-control{
+        display: none;
     }
 }
 

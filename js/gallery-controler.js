@@ -35,3 +35,10 @@ function toggleMenu() {
     console.log(mainMenu);
     mainMenu.classList.toggle('open');
 }
+
+function initMemes(){
+    var memes = loadMemesFromStorage()
+    var elContainer = document.querySelector('.images')
+    var strHtml = `<img src="${memes}">`;
+    elContainer.innerHTML += strHtml 
+}

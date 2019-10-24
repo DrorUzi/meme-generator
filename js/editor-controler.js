@@ -45,7 +45,7 @@ function onChangeLocation(id) {
             reDrawCanvas();
             break;
         case 'left':
-            if (meme.txts[meme.txtIdx].x < 100) return
+            if (meme.txts[meme.txtIdx].x < 10) return
             meme.txts[meme.txtIdx].x -= 20;
             reDrawCanvas();
             break;
@@ -109,6 +109,7 @@ function drawTexts() {
         //     onAddText()
         //     return
         // }
+        gCtx.lineWidth = 3;
         gCtx.font = `${txt.txtSize.size}px ${txt.txtSize.font}`
         gCtx.fillStyle = txt.color
         gCtx.strokeStyle = txt.strokeColor
@@ -175,11 +176,12 @@ function onChangeFont() {
 
 
 function onSaveMeme() {
-    saveMemeToLocalStorage()
+    var data = gCanvas.toDataURL()
+    saveMemeToLocalStorage(data)
 }
 
 function onDownloadMeme(elLink) {
-    const data = gCanvas.toDataURL()
+   var data = gCanvas.toDataURL()
     elLink.href = data
     elLink.download = 'my-canvas.jpg'
 }
@@ -231,42 +233,3 @@ function doUploadMeme(elForm, onSuccess) {
     js.src = 'https://connect.facebook.net/he_IL/sdk.js#xfbml=1&version=v3.0&appId=807866106076694&autoLogAppEvents=1';
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
-
-
-// function wrapText(text, x, y, maxWidth, lineHeight) {
-
-//     var words = text.split(' '),
-//         line = '',
-//         lineCount = 0,
-//         i,
-//         test,
-//         metrics;
-
-//     for (i = 0; i < words.length; i++) {
-//         test = words[i];
-//         metrics = gCtx.measureText(test);
-//         while (metrics.width > maxWidth) {
-//             test = test.substring(0, test.length - 1);
-//             metrics = gCtx.measureText(test);
-//         }
-//         if (words[i] != test) {
-//             words.splice(i + 1, 0, words[i].substr(test.length))
-//             words[i] = test;
-//         }
-
-//         test = line + words[i] + ' ';
-//         metrics = gCtx.measureText(test);
-
-//         if (metrics.width > maxWidth && i > 0) {
-//             gCtx.fillText(line, x, y += 100);
-//             line = words[i] + ' ';
-//             y += lineHeight;
-//             lineCount++;
-//         }
-//         else {
-//             line = test;
-//         }
-//     }
-
-//     gCtx.fillText(line, x, y);
-// }

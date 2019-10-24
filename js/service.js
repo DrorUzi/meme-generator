@@ -104,7 +104,6 @@ function createImgs() {
 }
 
 function getWordsCount() {
-
     gImgs.forEach(img => {
         img.keywords.forEach(word => {
     console.log(gWordsCounts)
@@ -151,10 +150,8 @@ function getMemes() {
     return gMeme
 }
 
-function saveMemeToLocalStorage(meme) {
-    let memes = loadMemesFromStorage()
-    if (memes) memes.push(meme);
-    localStorage.setItem(MEMES, gCanvas.toDataURL());
+function saveMemeToLocalStorage(data) {
+    saveToStorage(MEMES, data)
 }
 
 function loadMemesFromStorage() {
