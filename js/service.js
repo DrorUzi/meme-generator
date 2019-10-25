@@ -11,7 +11,9 @@ let gMeme = {
 }
 let gWordsCounts = {};
 
-
+// function getCurrTxt(){
+//     return gMeme.txts[gMeme.txtIdx].line
+// }
 
 function addTxt(x, y) {
     var txt = {
@@ -106,7 +108,6 @@ function createImgs() {
 function getWordsCount() {
     gImgs.forEach(img => {
         img.keywords.forEach(word => {
-    console.log(gWordsCounts)
 
             
             if (gWordsCounts.hasOwnProperty(word)) {

@@ -1,5 +1,6 @@
 'use strict'
 
+let gImgWidth,gImgHeight;
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
@@ -9,9 +10,9 @@ function initEditor() {
     gCanvas = document.querySelector('#my-canvas');
     gCtx = gCanvas.getContext('2d');
     // resizeCanvas();
-    addTxt(50, 100);
-    addTxt(50, 450);
     loadImg();
+    addTxt(50,100);
+    addTxt(50,300);
 }
 
 
@@ -72,13 +73,33 @@ function loadImg() {
     var img = new Image();
     img.src = currImgUrl;
     img.onload = () => {
-        gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+        let imgHeight = img.height;
+        let imgWidth = img.width;
+        let ratio = imgHeight / imgWidth;
+        let finalHeight;
+        let finalWidth;
+        if(ratio < 1){
+            finalWidth = 500;
+            finalHeight = finalWidth * ratio;
+        } else {
+            ratio = imgWidth / imgHeight;
+            finalHeight = 500;
+            finalWidth = finalHeight * ratio
+        }
+        
+        gCanvas.width = finalWidth;
+        gCanvas.height = finalHeight;
+    
+        gImgWidth = finalWidth;
+        gImgHeight = finalHeight;
+        gCtx.drawImage(img, 0, 0, imgWidth, imgHeight, 0, 0, finalWidth, finalHeight);
         drawTexts()
     }
     updateMeme(currImgId)
 }
 
 function onAddText() {
+    let elTxt = document.querySelector('.top-txt');
     let meme = getMemes();
     let txtY = meme.txts[meme.txtIdx].y + 100
     if (txtY > gCanvas.height) {
@@ -86,6 +107,7 @@ function onAddText() {
     }
     addTxt(50, txtY);
     meme.txtIdx = meme.txts.length - 1
+    elTxt.value = ''
 }
 
 function onDecreaseFont() {
@@ -117,24 +139,33 @@ function drawTexts() {
         gCtx.strokeText(txt.line, txt.x, txt.y, gCanvas.width - 100);
     })
 }
+function markLine(){
+    let currTxtSize = getCurrTxt();
+    if (currTxtSize) {
+        let currHeight = currTxtSize.height;
+        let currSize = currTxtSize.size;
+        gCtx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+        gCtx.strokeRect(0, currHeight - currSize / 2 + 10, gImgWidth, currSize + 10);
+    }
+}
 
 function onTextDirection(id) {
     var meme = getMemes();
     switch (id) {
         case 'left':
-            meme.txts[meme.txtIdx].x = 50;
+            meme.txts[meme.txtIdx].x = 10;
 
             gCtx.textAlign = "left";
             reDrawCanvas();
             break;
         case 'right':
-            meme.txts[meme.txtIdx].x = 450;
+            meme.txts[meme.txtIdx].x = gImgWidth -100;
             gCtx.textAlign = "right";
             reDrawCanvas();
 
             break;
         case 'center':
-            meme.txts[meme.txtIdx].x = 225;
+            meme.txts[meme.txtIdx].x = gImgWidth /2;
             gCtx.textAlign = "center";
             reDrawCanvas();
 
@@ -143,6 +174,7 @@ function onTextDirection(id) {
 
     }
 }
+
 
 function reDrawCanvas() {
     loadImg()
