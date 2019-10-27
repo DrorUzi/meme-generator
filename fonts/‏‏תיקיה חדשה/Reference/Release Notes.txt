@@ -1,0 +1,8 @@
+URW Impact v1.0
+March 22 2019
+
+files included:
+URW Impact Regular v1.0
+URW Impact Italic v1.0
+URW Impact D Bold v1.0
+URW Impact Condensed D Bold v1.0

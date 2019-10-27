@@ -125,12 +125,6 @@ function onIncreaseFont() {
 function drawTexts() {
     var memes = getMemes();
     memes.txts.forEach(txt => {
-        // var txtSize = gCtx.measureText(txt.line)
-        // changeTxt(txt.line, txt.size, txt.color, txt.strokeColor, txt.x, txt.y, txtSize);
-        // if (txtSize.width > gCanvas.width - 50) {
-        //     onAddText()
-        //     return
-        // }
         gCtx.lineWidth = 3;
         gCtx.font = `${txt.txtSize.size}px ${txt.txtSize.font}`
         gCtx.fillStyle = txt.color

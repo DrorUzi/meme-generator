@@ -32,7 +32,6 @@ function renderImgs() {
 
 function toggleMenu() {
     var mainMenu = document.getElementById('mainMenu');
-    console.log(mainMenu);
     mainMenu.classList.toggle('open');
 }
 
@@ -42,3 +41,4 @@ function initMemes(){
     var strHtml = `<img src="${memes}">`;
     elContainer.innerHTML += strHtml 
 }
+
