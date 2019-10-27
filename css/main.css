@@ -152,6 +152,10 @@ a:hover {
     display: none;
 }
 
+.grab{
+    cursor: grab
+}
+
 @media (max-width: 580px) {
     .header-wrapper {
         width: 100%;
@@ -167,7 +171,6 @@ a:hover {
         margin: 0 auto;
         width: 20rem;
         max-height: 20rem;
-        padding: 10px;
     }
     .editor-btns {
         max-width: 80vh;

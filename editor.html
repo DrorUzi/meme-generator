@@ -38,9 +38,15 @@
     <div class="container-fluid">
         <div class="row all">
             <div class="canvas-container col-sm ">
-                <canvas class="flex justify-center" id="my-canvas" width="500" height="500">
+                <div>
+                <canvas class="flex justify-center" id="my-canvas" width="500" height="500" onclick="handleMouseEv(event)"
+                onmousedown="handleMouseEv(event)" onmouseup="handleMouseEv(event)"
+                onmousemove="handleMouseEv(event)" onmouseleave="handleMouseEv(event)"
+                ontouchstart="handleMouseEv(event)" ontouchend="handleMouseEv(event)"
+                ontouchmove="dragWithTouch(event)">
                     Update your browser to enjoy canvas!
                 </canvas>
+            </div>
             </div>
 
 
@@ -89,7 +95,6 @@
                     </div>
                     <div class="forth-editors flex row justify-center">
                         <select class="form-control" onchange="onChangeFont()">
-                            <option hidden>Font</option>
                             <option class="Impact">Impact</option>
                             <option class="Modak">Modak</option>
                             <option class="Monoton">Monoton</option>

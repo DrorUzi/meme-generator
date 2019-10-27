@@ -16,6 +16,7 @@ let gWordsCounts = {};
 function addTxt(x, y) {
     var txt = {
         line: '',
+        align : 'left',
         txtSize: { size: 80, font : `Impact, Haettenschweiler, Arial Narrow Bold, sans-serif`},
         color: '#ffffff',
         strokeColor: '#000000',
@@ -26,43 +27,6 @@ function addTxt(x, y) {
     gMeme.txts.push(txt)
 }
 
-function changeTxt(elTxt,size,font, color, strokeColor, x, y,boxSize) {
-    var txt = {
-        line: elTxt,
-        txtSize:{size,font},
-        color,
-        strokeColor,
-        x,
-        y,
-        boxSize
-    }
-   
-    gMeme.txts[gMeme.txtIdx] = txt;
-}
-
-function changeLine(line) {
-    let txt = gMeme.txts[gMeme.txtIdx];
-    changeTxt(line,txt.txtSize.size,txt.txtSize.font, txt.color, txt.strokeColor, txt.x, txt.y,txt.boxSize);
-}
-
-function changeColor(color) {
-    let txt = gMeme.txts[gMeme.txtIdx];
-    changeTxt(txt.line, txt.txtSize.size,txt.txtSize.font, color, txt.strokeColor, txt.x, txt.y,txt.boxSize);
-}
-function changeStroke(stroke) {
-    let txt = gMeme.txts[gMeme.txtIdx];
-    changeTxt(txt.line,txt.txtSize.size,txt.txtSize.font, txt.color, stroke, txt.x, txt.y,txt.boxSize);
-}
-
-function changeSize(size) {
-    let txt = gMeme.txts[gMeme.txtIdx];
-    changeTxt(txt.line, size,txt.txtSize.font, txt.color, txt.strokeColor, txt.x, txt.y,txt.boxSize);
-}
-
-function changeFont(font){
-    let txt = gMeme.txts[gMeme.txtIdx];
-    changeTxt(txt.line, txt.txtSize.size,font, txt.color, txt.strokeColor, txt.x, txt.y,txt.boxSize);
-}
 
 function updateMeme(imgId) {
     gMeme.selectedImgId = imgId
@@ -100,7 +64,6 @@ function createImgs() {
         createImg("meme-imgs/X-Everywhere.jpg",['moovie','funny','animation']),
 
     ]
-
 
 }
 

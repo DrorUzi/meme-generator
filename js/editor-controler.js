@@ -1,6 +1,8 @@
 'use strict'
 
-let gImgWidth,gImgHeight;
+let gImgWidth, gImgHeight, gStartX, gStartY,gTimerTimeout;
+let gIsMouseDown = false;
+
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
@@ -9,10 +11,10 @@ $(function () {
 function initEditor() {
     gCanvas = document.querySelector('#my-canvas');
     gCtx = gCanvas.getContext('2d');
-    // resizeCanvas();
     loadImg();
-    addTxt(50,100);
-    addTxt(50,300);
+    addTxt(50, 100);
+    addTxt(50, 300);
+    // resizeCanvas()
 }
 
 
@@ -30,13 +32,18 @@ function onNextTxt() {
     if (meme.txtIdx > txtsCount - 1) meme.txtIdx = 0;
     let elTxt = document.querySelector('.top-txt');
     elTxt.value = meme.txts[meme.txtIdx].line;
+    markTxt(meme.txts[meme.txtIdx].line)
+    
 }
 
 function onChangeLine() {
     let elTxt = document.querySelector('.top-txt').value;
-    changeLine(elTxt);
+    let meme = getMemes()
+    // markTxt(meme.txts[meme.txtIdx].line)     
+    meme.txts[meme.txtIdx].line = elTxt
     reDrawCanvas()
 }
+
 function onChangeLocation(id) {
     var meme = getMemes()
     switch (id) {
@@ -57,7 +64,7 @@ function onChangeLocation(id) {
             reDrawCanvas();
             break;
         case 'up':
-            if (meme.txts[meme.txtIdx].y <  100) return
+            if (meme.txts[meme.txtIdx].y < 100) return
             meme.txts[meme.txtIdx].y -= 20;
             reDrawCanvas();
 
@@ -78,7 +85,7 @@ function loadImg() {
         let ratio = imgHeight / imgWidth;
         let finalHeight;
         let finalWidth;
-        if(ratio < 1){
+        if (ratio < 1) {
             finalWidth = 500;
             finalHeight = finalWidth * ratio;
         } else {
@@ -86,10 +93,10 @@ function loadImg() {
             finalHeight = 500;
             finalWidth = finalHeight * ratio
         }
-        
+
         gCanvas.width = finalWidth;
         gCanvas.height = finalHeight;
-    
+
         gImgWidth = finalWidth;
         gImgHeight = finalHeight;
         gCtx.drawImage(img, 0, 0, imgWidth, imgHeight, 0, 0, finalWidth, finalHeight);
@@ -106,19 +113,21 @@ function onAddText() {
         txtY = meme.txts[meme.txtIdx].y - 100
     }
     addTxt(50, txtY);
+    markTxt(meme.txts[meme.txtIdx+1])
     meme.txtIdx = meme.txts.length - 1
+    console.log(meme.txts[meme.txtIdx])
     elTxt.value = ''
 }
 
 function onDecreaseFont() {
     let meme = getMemes();
-    changeSize(meme.txts[meme.txtIdx].txtSize.size - 10)
+    meme.txts[meme.txtIdx].txtSize.size -= 10
     reDrawCanvas();
 }
 
 function onIncreaseFont() {
     let meme = getMemes();
-    changeSize(meme.txts[meme.txtIdx].txtSize.size + 10)
+    meme.txts[meme.txtIdx].txtSize.size += 10
     reDrawCanvas();
 }
 
@@ -126,41 +135,40 @@ function drawTexts() {
     var memes = getMemes();
     memes.txts.forEach(txt => {
         gCtx.lineWidth = 3;
+        gCtx.textAlign = txt.align;
         gCtx.font = `${txt.txtSize.size}px ${txt.txtSize.font}`
         gCtx.fillStyle = txt.color
         gCtx.strokeStyle = txt.strokeColor
         gCtx.fillText(txt.line, txt.x, txt.y, gCanvas.width - 100);
         gCtx.strokeText(txt.line, txt.x, txt.y, gCanvas.width - 100);
+        txt.width = gCtx.measureText(txt.line).width;
+        txt.height = txt.txtSize.size
     })
 }
-function markLine(){
-    let currTxtSize = getCurrTxt();
-    if (currTxtSize) {
-        let currHeight = currTxtSize.height;
-        let currSize = currTxtSize.size;
-        gCtx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-        gCtx.strokeRect(0, currHeight - currSize / 2 + 10, gImgWidth, currSize + 10);
-    }
-}
+
 
 function onTextDirection(id) {
     var meme = getMemes();
     switch (id) {
         case 'left':
             meme.txts[meme.txtIdx].x = 10;
-
             gCtx.textAlign = "left";
+            meme.txts[meme.txtIdx].align = 'left'
             reDrawCanvas();
             break;
         case 'right':
-            meme.txts[meme.txtIdx].x = gImgWidth -100;
+            meme.txts[meme.txtIdx].x = gImgWidth - 100;
             gCtx.textAlign = "right";
+            meme.txts[meme.txtIdx].align = 'right'
+
             reDrawCanvas();
 
             break;
         case 'center':
-            meme.txts[meme.txtIdx].x = gImgWidth /2;
+            meme.txts[meme.txtIdx].x = gImgWidth / 2;
             gCtx.textAlign = "center";
+            meme.txts[meme.txtIdx].align = 'center'
+
             reDrawCanvas();
 
             break;
@@ -176,13 +184,15 @@ function reDrawCanvas() {
 
 function onChangeColor() {
     let elColor = document.querySelector('.color').value
-    changeColor(elColor)
+    let meme = getMemes();
+    meme.txts[meme.txtIdx].color = elColor
     reDrawCanvas();
 }
 
 function onChangeStroke() {
     let elColor = document.querySelector('.stroke').value
-    changeStroke(elColor)
+    let meme = getMemes();
+    meme.txts[meme.txtIdx].strokeColor = elColor
     reDrawCanvas();
 }
 
@@ -191,11 +201,12 @@ function onDeleteText() {
     meme.txts.splice(meme.txtIdx, 1)
     onNextTxt();
     reDrawCanvas();
-
 }
+
 function onChangeFont() {
     let elFont = document.querySelector('.form-control').value
-    changeFont(elFont)
+    let meme = getMemes();
+    meme.txts[meme.txtIdx].txtSize.font = elFont
     reDrawCanvas();
 }
 
@@ -207,7 +218,7 @@ function onSaveMeme() {
 }
 
 function onDownloadMeme(elLink) {
-   var data = gCanvas.toDataURL()
+    var data = gCanvas.toDataURL()
     elLink.href = data
     elLink.download = 'my-canvas.jpg'
 }
@@ -259,3 +270,141 @@ function doUploadMeme(elForm, onSuccess) {
     js.src = 'https://connect.facebook.net/he_IL/sdk.js#xfbml=1&version=v3.0&appId=807866106076694&autoLogAppEvents=1';
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+
+function drawRect(startX, startY, endX, endY) {
+    gCtx.beginPath()
+    gCtx.setLineDash([8]);
+    gCtx.rect(startX, startY, endX, endY)
+    gCtx.lineWidth = 2
+    gCtx.strokeStyle = 'white'
+    gCtx.stroke()
+    gCtx.closePath()
+}
+
+
+function markTxt(txt) {
+    // reDrawCanvas()
+    let startX;
+    let startY;
+    let endX = (txt.width) + 15
+    let endY = (txt.height) + 5
+    if (txt.align === 'left') {
+        startX = txt.x - 5;
+        startY = txt.y - txt.height + 5;
+    }
+    else if (txt.align === 'center') {
+        startX = txt.x - (txt.width / 2) - 5;
+        startY = txt.y - txt.height + 5;
+    }
+    else {
+        startX = txt.x - (txt.width) - 5;
+        startY = txt.y - (txt.height) + 5;
+    }
+    drawRect(startX, startY, endX, endY)
+    // gTimerTimeout = setTimeout(() => {
+    //     gCtx.clearRect(startX, startY, endX, endY)
+    //     reDrawCanvas()
+    // }, 3000);
+
+    // showInput()
+}
+
+
+// function showInput() {
+//     var meme = getMemes()
+//     var elInput = document.querySelector('.top-txt')
+//     elInput.value = meme.txts[meme.txtIdx].line
+
+// }
+
+function textHitTest(x, y, txtIdx) {
+    var meme = getMemes()
+    var txt = meme.txts[txtIdx]
+    let startX;
+    let startY = txt.y - txt.height
+    let endX;
+    let endY = txt.y
+    if (txt.align === 'left') {
+        startX = txt.x
+        endX = txt.x + txt.width
+    }
+    else if (txt.align === 'center') {
+        startX = txt.x - (txt.width / 2)
+        endX = txt.x + (txt.width / 2)
+    }
+    else {
+        startX = txt.x - txt.width
+        endX = txt.x
+    }
+    return (x >= startX && x <= endX && y >= startY && y <= endY);
+}
+
+function handleMouseEv(ev) {
+    ev.preventDefault();
+    var meme = getMemes()
+    var offsetX = gCanvas.offsetLeft;
+    var offsetY = gCanvas.offsetTop+66
+    var elCanvas = document.getElementById('my-canvas')
+    
+    if (ev.type === 'mousedown' || ev.type === 'touchstart') {
+        if (ev.type === 'mousedown') {
+            gStartX = parseInt(ev.clientX - offsetX);
+            gStartY = parseInt(ev.clientY - offsetY);
+        }
+        else if (ev.type === 'touchstart') {
+            gStartX = parseInt(ev.changedTouches[0].pageX - offsetX)
+            gStartY = parseInt(ev.changedTouches[0].pageY - offsetY)
+        }
+        
+        for (var i = 0; i < meme.txts.length; i++) {
+            if (textHitTest(gStartX, gStartY, i)) {
+                meme.txtIdx = i;
+                markTxt(meme.txts[meme.txtIdx])
+                gIsMouseDown = true
+                elCanvas.classList.add("grab")
+                break;
+            }
+            else gIsMouseDown = false
+            
+        }
+    }
+    if (ev.type === 'mouseup' || ev.type === 'touchend' || ev.type === 'mouseleave'){
+        elCanvas.classList.remove("grab")    
+        gIsMouseDown = false
+    }
+    
+    if (ev.type === 'mousemove') {
+        if (!gIsMouseDown) return
+        var txt = meme.txts[meme.txtIdx];
+        markTxt(txt)
+        var mouseX = parseInt(ev.clientX - offsetX);
+        var mouseY = parseInt(ev.clientY - offsetY);
+        var dragX = mouseX - gStartX;
+        var dragY = mouseY - gStartY;
+        gStartX = mouseX;
+        gStartY = mouseY;
+        txt.x += dragX;
+        txt.y += dragY;
+        reDrawCanvas()
+    }
+}
+
+function dragWithTouch(ev) {
+    if (!gIsMouseDown) return
+    var rect = ev.target.getBoundingClientRect();
+    var bodyRect = document.body.getBoundingClientRect();
+    var x = ev.changedTouches[0].pageX - (rect.left - bodyRect.left);
+    var y = ev.changedTouches[0].pageY - (rect.top - bodyRect.top);
+    var touchX = parseInt(x);
+    var touchY = parseInt(y);
+    var dragX = touchX - gStartX;
+    var dragY = touchY - gStartY;
+    var meme = getMemes()
+    var txt = meme.txts[meme.txtIdx];
+    gStartX = touchX;
+    gStartY = touchY;
+    txt.x += dragX;
+    txt.y += dragY;
+    reDrawCanvas()
+}
