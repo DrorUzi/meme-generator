@@ -3,7 +3,7 @@
 const MEMES = 'memes'
 const IMG_ID = 'imgId'
 let gNextId = 101;
-let gImgs = createImgs();
+let gImgs
 let gMeme = {
     selectedImgId: 5,
     txtIdx: 0,
@@ -11,13 +11,19 @@ let gMeme = {
 }
 let gWordsCounts = {};
 
+function loadGimgs(){
+    gImgs = loadFromStorage('imgs')
+    if(gImgs) gNextId = gImgs[gImgs.length-1].id;
+    else gImgs = createImgs()
+}
 
 
 function addTxt(x, y) {
     var txt = {
         line: '',
         align : 'left',
-        txtSize: { size: 80, font : `Impact, Haettenschweiler, Arial Narrow Bold, sans-serif`},
+        size: 80,
+        font : `Impact, Haettenschweiler, Arial Narrow Bold, sans-serif`,
         color: '#ffffff',
         strokeColor: '#000000',
         x,
@@ -28,7 +34,7 @@ function addTxt(x, y) {
 }
 
 
-function updateMeme(imgId) {
+function updateMemeId(imgId) {
     gMeme.selectedImgId = imgId
 }
 
@@ -36,9 +42,14 @@ function getImgs() {
     return gImgs
 }
 
+function updateLine(key, value){
+    let currLine = gMeme.txts[gMeme.txtIdx]
+    currLine[key] = value
+}
+
 
 function createImgs() {
-    return [
+   var imgs =  [
         createImg("meme-imgs/003.jpg", ['usa', 'president', 'tramp', 'angry']),
         createImg("meme-imgs/004.jpg",['puppys', 'dog', 'cute', 'happy', 'animals']),
         createImg("meme-imgs/005.jpg",['animals', 'dog', 'baby', 'cute', 'sleep']),
@@ -62,16 +73,21 @@ function createImgs() {
         createImg("meme-imgs/Oprah-You-Get-A.jpg",['television','opra','hands','smile','woman']),
         createImg("meme-imgs/patrick.jpg",['moovie','actor','funny','smile']),
         createImg("meme-imgs/X-Everywhere.jpg",['moovie','funny','animation']),
-
     ]
+    saveToStorage('imgs',imgs)
+    return imgs
 
 }
 
+function updateGimgs(img){
+    gImgs.push(img)
+    saveToStorage('imgs',gImgs)
+}
 
 
 function createImg(src, keywords) {
     return  {
-        id: gNextId++,
+        id: ++gNextId,
         src,
         keywords
     }
@@ -124,4 +140,13 @@ function getWordsCount() {
 
 }
 
+function loadImageFromInput(ev, onImageReady) {
+    var reader = new FileReader();
 
+    reader.onload = function (event) {
+        var img = new Image();
+        img.onload = onImageReady.bind(null, img)
+        img.src = event.target.result;
+    }
+    reader.readAsDataURL(ev.target.files[0]);
+}

@@ -4,10 +4,9 @@ let gCtx, gCanvas;
 
 
 function init(){
-    createImgs()
+    loadGimgs()
     renderImgs()
     getWordsCount();
-
 }
 
 
@@ -15,7 +14,6 @@ function init(){
 function onAddImg(imgId) {
     saveImgIdToLocalStorage(imgId)
     location.href = "editor.html";
-
 }
 
 

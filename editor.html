@@ -39,21 +39,27 @@
         <div class="row all">
             <div class="canvas-container col-sm ">
                 <div>
-                <canvas class="flex justify-center" id="my-canvas" width="500" height="500" onclick="handleMouseEv(event)"
-                onmousedown="handleMouseEv(event)" onmouseup="handleMouseEv(event)"
-                onmousemove="handleMouseEv(event)" onmouseleave="handleMouseEv(event)"
-                ontouchstart="handleMouseEv(event)" ontouchend="handleMouseEv(event)"
-                ontouchmove="dragWithTouch(event)">
-                    Update your browser to enjoy canvas!
-                </canvas>
-            </div>
+                    <canvas class="flex justify-center" id="my-canvas" width="500" height="500"
+                        onclick="handleMouseEv(event)" onmousedown="handleMouseEv(event)"
+                        onmouseup="handleMouseEv(event)" onmousemove="handleMouseEv(event)"
+                        onmouseleave="handleMouseEv(event)" ontouchstart="handleMouseEv(event)"
+                        ontouchend="handleMouseEv(event)" ontouchmove="dragWithTouch(event)">
+                        Update your browser to enjoy canvas!
+                    </canvas>
+                </div>
+                <label class="btn upload-btn" for="imgData"><img src="DESIGN/Meme1 - Sergei/ICONS/upload_image-512.png" alt=""
+                    data-toggle="tooltip" data-placement="top" title="Upload your image"
+                    class="font-size" style="background-color:rgba(0, 0,0, 0)"></label>
+                <input type="file" name="upload" id="imgData" onchange="onImgInput(event)" style="display:none">
             </div>
 
 
             <div class="editor col-sm  ">
                 <div class="editor-btns column flex">
-                    <textarea class="top-txt" type="text" name="txt" id="txt" rows="3"
-                        onkeyup="onChangeLine()"></textarea>
+                      
+
+                    <textarea class="top-txt" type="text" name="line" id="txt" rows="3"
+                        onkeyup="changeProp(this.value,this.name)"></textarea>
                     <div class="first-editors flex row justify-center">
                         <img src="DESIGN/Meme1 - Sergei/ICONS/up-down.png" alt="" data-toggle="tooltip"
                             data-placement="top" title="Next text" class="font-size" onclick="onNextTxt()">
@@ -81,20 +87,20 @@
                     </div>
                     <div class="forth-editors flex row justify-center">
                         <img src="DESIGN/Meme1 - Sergei/ICONS/Arrowright (1).png" alt="" data-toggle="tooltip"
-                            id="right" data-placement="top" title="Move the row right"
-                            class="font-size" onclick="onChangeLocation(this.id)">
-                            <img src="DESIGN/Meme1 - Sergei/ICONS/left-arrow.png" alt="" data-toggle="tooltip"
-                            id="left" data-placement="top" title="Move the row left"
-                            class="font-size" onclick="onChangeLocation(this.id)">
-                            <img src="DESIGN/Meme1 - Sergei/ICONS/download-arrow.png" alt="" data-toggle="tooltip"
-                            id="down" data-placement="top" title="Move the row down"
-                            class="font-size" onclick="onChangeLocation(this.id)">
-                            <img src="DESIGN/Meme1 - Sergei/ICONS/up-arrow.png" alt="" data-toggle="tooltip"
-                            id="up" data-placement="top" title="Move the row up"
-                            class="font-size" onclick="onChangeLocation(this.id)">
+                            id="right" data-placement="top" title="Move the row right" class="font-size"
+                            onclick="onChangeLocation(this.id)">
+                        <img src="DESIGN/Meme1 - Sergei/ICONS/left-arrow.png" alt="" data-toggle="tooltip" id="left"
+                            data-placement="top" title="Move the row left" class="font-size"
+                            onclick="onChangeLocation(this.id)">
+                        <img src="DESIGN/Meme1 - Sergei/ICONS/download-arrow.png" alt="" data-toggle="tooltip" id="down"
+                            data-placement="top" title="Move the row down" class="font-size"
+                            onclick="onChangeLocation(this.id)">
+                        <img src="DESIGN/Meme1 - Sergei/ICONS/up-arrow.png" alt="" data-toggle="tooltip" id="up"
+                            data-placement="top" title="Move the row up" class="font-size"
+                            onclick="onChangeLocation(this.id)">
                     </div>
                     <div class="forth-editors flex row justify-center">
-                        <select class="form-control" onchange="onChangeFont()">
+                        <select name="font" class="form-control" onchange="changeProp(this.value,this.name)">
                             <option class="Impact">Impact</option>
                             <option class="Modak">Modak</option>
                             <option class="Monoton">Monoton</option>
@@ -105,11 +111,10 @@
                         <label for="stroke"><img src="DESIGN/Meme1 - Sergei/ICONS/text stroke.png" alt=""
                                 data-toggle="tooltip" data-placement="top" title="Change stroke color"
                                 class="font-size"></label>
-                        <input class="stroke" id="stroke" type="color" value="" onchange="onChangeStroke()">
+                        <input class="stroke" id="stroke" type="color" value="" name="strokeColor" onchange="changeProp(this.value,this.name)">
                         <label for="color-fill"><img src="DESIGN/Meme1 - Sergei/ICONS/paint-board-and-brush.png" alt=""
-                            data-toggle="tooltip" data-placement="top" title="Change color" class="font-size"
-                            onclick="onChangeColor()"></label>
-                        <input class="color" id="color-fill" type="color" value="" onchange="onChangeColor()">
+                                data-toggle="tooltip" data-placement="top" title="Change color" class="font-size"></label>
+                        <input class="color" id="color-fill" type="color" value="" name="color" onchange="changeProp(this.value,this.name)">
                     </div>
                     <div class="btns flex row justify-center">
                         <button type="button" class="save-btn btn" onclick="onSaveMeme()">Save meme</button>
